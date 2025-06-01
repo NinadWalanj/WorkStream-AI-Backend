@@ -1,0 +1,31 @@
+# Node.js dependencies
+node_modules/
+
+# Build and runtime artifacts
+dist/
+build/
+*.log
+*.out
+
+# Environment variables
+.env
+.env.*
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Logs
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# IDE/project files
+.vscode/
+.idea/
+*.swp

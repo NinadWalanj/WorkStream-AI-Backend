@@ -1,0 +1,68 @@
+services:
+  gateway:
+    build: ./gateway
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./gateway/.env
+    depends_on:
+      - auth-service
+      - repo-service
+      - summarization-engine
+    restart: unless-stopped
+    networks:
+      - backend
+
+  auth-service:
+    build: ./auth-service
+    expose:
+      - "5001"
+    env_file:
+      - ./auth-service/.env
+    restart: unless-stopped
+    networks:
+      - backend
+
+  repo-service:
+    build: ./repo-service
+    expose:
+      - "5002"
+    env_file:
+      - ./repo-service/.env
+    restart: unless-stopped
+    networks:
+      - backend
+
+  event-store:
+    build: ./event-store
+    expose:
+      - "5003"
+    env_file:
+      - ./event-store/.env
+    restart: unless-stopped
+    networks:
+      - backend
+
+  activity-ingestor:
+    build: ./activity-ingestor
+    ports:
+      - "5004:5004"
+    env_file:
+      - ./activity-ingestor/.env
+    restart: unless-stopped
+    networks:
+      - backend
+
+  summarization-engine:
+    build: ./summarization-engine
+    expose:
+      - "5005"
+    env_file:
+      - ./summarization-engine/.env
+    restart: unless-stopped
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
