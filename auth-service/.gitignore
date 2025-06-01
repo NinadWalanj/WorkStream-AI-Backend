@@ -11,9 +11,6 @@ build/
 .env
 .env.*
 
-# Docker
-Dockerfile
-.dockerignore
 
 # Logs
 logs/
