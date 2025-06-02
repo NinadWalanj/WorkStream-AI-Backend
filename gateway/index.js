@@ -44,21 +44,9 @@ function sessionGuard(req, res, next) {
 app.use(
   "/auth",
   createProxyMiddleware({
-    target: process.env.AUTH_SERVICE_URL, // e.g. http://auth-service:5001
+    target: process.env.AUTH_SERVICE_URL,
     changeOrigin: true,
     pathRewrite: { "^/auth": "" },
-    onProxyRes: function (proxyRes) {
-      const cookies = proxyRes.headers["set-cookie"];
-      if (cookies) {
-        console.log("cookies: ", cookies);
-        proxyRes.headers["set-cookie"] = cookies.map(
-          (cookie) =>
-            cookie
-              .replace(/Domain=[^;]+;?/i, "") // remove Domain attr
-              .replace(/;\s*Secure/gi, "; Secure") // normalize Secure
-        );
-      }
-    },
   })
 );
 
