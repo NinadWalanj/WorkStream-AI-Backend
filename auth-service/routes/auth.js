@@ -55,9 +55,13 @@ router.get(
     failureRedirect: "https://workstreamai.netlify.app/register",
   }),
   async (req, res) => {
-    // Store the current session ID in Redis against this user
     await redisClient.set(`user:${req.user.id}`, req.sessionID);
-    res.redirect("https://workstreamai.netlify.app/"); // or send user info via JSON if using SPA
+
+    res.status(200).json({
+      success: true,
+      user: req.user,
+      message: "Login successful",
+    });
   }
 );
 
