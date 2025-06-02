@@ -47,6 +47,15 @@ app.use(
     target: process.env.AUTH_SERVICE_URL,
     changeOrigin: true,
     pathRewrite: { "^/auth": "" },
+    onProxyRes: function (proxyRes, req, res) {
+      const cookies = proxyRes.headers["set-cookie"];
+      if (cookies) {
+        // Rewrite cookie domain if needed, and pass to client
+        proxyRes.headers["set-cookie"] = cookies.map(
+          (cookie) => cookie.replace(/Domain=[^;]+;?/i, "") // remove Domain attr
+        );
+      }
+    },
   })
 );
 
