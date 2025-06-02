@@ -52,18 +52,20 @@ router.get(
 router.get(
   "/github/callback",
   passport.authenticate("github", {
-    failureRedirect: "http://localhost:5173/register",
+    failureRedirect: "https://workstreamai.netlify.app/register",
   }),
   async (req, res) => {
     // Store the current session ID in Redis against this user
     await redisClient.set(`user:${req.user.id}`, req.sessionID);
-    res.redirect("http://localhost:5173/"); // or send user info via JSON if using SPA
+    res.redirect("https://workstreamai.netlify.app/"); // or send user info via JSON if using SPA
   }
 );
 
 router.get("/logout", (req, res) => {
   req.logout(() => {
-    req.session.destroy(() => res.redirect("http://localhost:5173/register"));
+    req.session.destroy(() =>
+      res.redirect("https://workstreamai.netlify.app/register")
+    );
   });
 });
 

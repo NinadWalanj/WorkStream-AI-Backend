@@ -12,5 +12,10 @@ module.exports = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false }, // set to true in production with HTTPS
+  cookie: {
+    httpOnly: true,
+    secure: true, // ✅ Set to true if you're using HTTPS
+    sameSite: "none", // 🔒 Ensures cookies sent with frontend requests
+    maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
+  },
 });

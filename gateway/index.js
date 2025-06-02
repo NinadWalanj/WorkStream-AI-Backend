@@ -6,10 +6,16 @@ const cors = require("cors");
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    credentials: true,
+    origin: [
+      "https://workstreamai.netlify.app", // ✅ your frontend (Netlify)
+      "https://workstream-ai.online", // ✅ your production domain (if later moved)
+      "https://www.workstream-ai.online", // ✅ if www. version is ever used
+    ],
+    credentials: true, // ✅ allow cookies/sessions
   })
 );
 app.use(session);
