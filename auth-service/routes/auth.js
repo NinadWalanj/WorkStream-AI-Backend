@@ -57,10 +57,14 @@ router.get(
   async (req, res) => {
     await redisClient.set(`user:${req.user.id}`, req.sessionID);
 
+    // res.status(200).json({
+    //   success: true,
+    //   user: req.user,
+    //   message: "Login successful",
+    // });
     res.status(200).json({
-      success: true,
-      user: req.user,
       message: "Login successful",
+      redirectTo: "https://workstreamai.netlify.app/",
     });
   }
 );
