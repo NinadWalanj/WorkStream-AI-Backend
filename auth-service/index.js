@@ -5,6 +5,7 @@ const passport = require("passport");
 const authRoutes = require("./routes/auth");
 
 const app = express();
+app.set("trust proxy", true);
 
 app.use(session);
 app.use(passport.initialize());

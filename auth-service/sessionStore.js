@@ -12,7 +12,6 @@ module.exports = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  domain: ".workstream‑ai.online",
   cookie: {
     httpOnly: true,
     secure: true, // ✅ Set to true if you're using HTTPS
